@@ -23,9 +23,9 @@ interface Duty {
 
 ## Task List (Frontend)
 
-- [ ] Write component to render TODO list
-- [ ] Write component to let user to input TODO list and submit
-- [ ] Provide a method to delete TODO list item
+- [x] Write component to render TODO list
+- [x] Write component to let user to input TODO list and submit
+- [x] Provide a method to delete TODO list item
 - [ ] Responsive Web Design
 - [ ] Write test cases with Jest
 
