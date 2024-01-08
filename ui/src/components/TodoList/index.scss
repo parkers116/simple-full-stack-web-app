@@ -1,0 +1,56 @@
+.todo-list {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+
+  .todo-list-item {
+    .ant-card-body {
+      position: relative;
+      padding-bottom: 48px;
+    }
+    .date-created {
+      position: absolute;
+      bottom: 12px;
+      left: 24px;
+      font-size: 10px;
+      color: grey;
+    }
+
+    .close-icon {
+      cursor: pointer;
+      position: absolute;
+      bottom: 12px;
+      right: 24px;
+      font-size: 20px;
+      color: red;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .modal-confirm-remove {
+    .name {
+      font-weight: bold;
+      color: red;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        margin: 10px 10px 0 10px !important;
+        width: 80px;
+      }
+    }
+
+    .close-button-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  }
+}

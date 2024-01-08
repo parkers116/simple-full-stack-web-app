@@ -1,0 +1,25 @@
+.form-dialog {
+  width: 250px;
+
+  .form-submit {
+    display: flex;
+    flex-direction: column;
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        margin: 0 10px !important;
+        width: 80px;
+      }
+    }
+  }
+
+  .close-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+}
