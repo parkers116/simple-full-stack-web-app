@@ -40,7 +40,31 @@ router.post("/", (req, res) => {
     })
     .catch((err) => {
       res.status(400).send({ status: 400, data: null });
-      console.log(err);
+      return;
+    });
+});
+
+router.put("/", (req, res) => {
+  let body = req.body ?? null;
+
+  if (!(body && "id" in body && "name" in body)) {
+    res.status(400).send({ status: 400, data: null });
+    return;
+  }
+
+  let arrQuery = [body.id, body.name, body.desc ?? null];
+
+  pool
+    .query(
+      "UPDATE public.todo_list SET item_name=$2, item_desc=$3 WHERE id=$1;",
+      arrQuery
+    )
+    .then((dbResult) => {
+      res.send({ status: 200, data: null });
+      return;
+    })
+    .catch((err) => {
+      res.status(400).send({ status: 400, data: null });
       return;
     });
 });
