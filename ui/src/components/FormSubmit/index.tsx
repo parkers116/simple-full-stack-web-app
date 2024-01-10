@@ -1,23 +1,54 @@
 import React, { useRef } from "react";
 import { Button, Form, Input } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
+import { useQuery } from "react-query";
 
 import "./index.scss";
+import { postTodoList, putTodoList } from "../../api/todolist";
+import { SelectedItemType } from "../TodoList";
 
 const { TextArea } = Input;
 const { Item } = Form;
 
-type Props = {};
+type FormSubmitProps = {
+  type: "create" | "modify";
+  selectedId?: string; // only occur if type === "modify";
+  cbClose?: () => void;
+};
 
-const FormSubmit = (props: Props) => {
+const FormSubmit = (props: FormSubmitProps) => {
   const refForm = useRef<HTMLDialogElement>(null);
+  const { data, refetch } = useQuery("todoList");
+
+  const targetData = (data as Array<SelectedItemType>)?.filter(
+    (item) => item.id === props.selectedId
+  )[0];
+
+  const getSubmitButtonText = () => {
+    switch (props.type) {
+      case "create":
+        return "Submit";
+      case "modify":
+        return "Modify";
+    }
+  };
 
   const onClickClose = () => {
     refForm.current?.close();
+    props.cbClose && props.cbClose();
   };
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const onFinish = async (objFormData: any) => {
+    switch (props.type) {
+      case "create":
+        await postTodoList(objFormData);
+        break;
+      case "modify":
+        await putTodoList({ ...objFormData, id: props.selectedId });
+        break;
+    }
+    refetch();
+    onClickClose();
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -25,7 +56,7 @@ const FormSubmit = (props: Props) => {
   };
 
   return (
-    <dialog className="form-dialog" ref={refForm}>
+    <dialog className={`form-dialog form-dialog-${props.type}`} ref={refForm}>
       <Form
         className="form-submit"
         layout="vertical"
@@ -34,15 +65,23 @@ const FormSubmit = (props: Props) => {
         autoComplete="off"
       >
         <Item name="name" label="Name" rules={[{ required: true, max: 100 }]}>
-          <Input type="text" placeholder="name of the todo item" />
+          <Input
+            type="text"
+            placeholder="name of the todo item"
+            defaultValue={targetData?.name}
+          />
         </Item>
         <Item name="desc" label="Description" rules={[{ max: 200 }]}>
-          <TextArea rows={4} placeholder="description here..." />
+          <TextArea
+            rows={4}
+            placeholder="description here..."
+            defaultValue={targetData?.desc}
+          />
         </Item>
         <div className="button-container">
           <Button htmlType="reset">Reset</Button>
           <Button type="primary" htmlType="submit">
-            Submit
+            {getSubmitButtonText()}
           </Button>
         </div>
       </Form>

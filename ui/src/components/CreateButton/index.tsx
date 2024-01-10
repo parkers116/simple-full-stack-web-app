@@ -9,7 +9,9 @@ type Props = {};
 const CreateButton = (props: Props) => {
   const onClick = () => {
     (
-      document.getElementsByClassName("form-dialog")[0] as HTMLDialogElement
+      document.getElementsByClassName(
+        "form-dialog-create"
+      )[0] as HTMLDialogElement
     )?.showModal();
   };
   return (

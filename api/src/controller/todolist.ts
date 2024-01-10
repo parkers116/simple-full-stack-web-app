@@ -47,6 +47,8 @@ router.post("/", (req, res) => {
 router.put("/", (req, res) => {
   let body = req.body ?? null;
 
+  console.log(body);
+
   if (!(body && "id" in body && "name" in body)) {
     res.status(400).send({ status: 400, data: null });
     return;

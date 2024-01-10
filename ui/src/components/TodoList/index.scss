@@ -8,6 +8,7 @@
       position: relative;
       padding-bottom: 48px;
     }
+
     .date-created {
       position: absolute;
       bottom: 12px;
@@ -26,6 +27,15 @@
 
       &:hover {
         transform: scale(1.2);
+      }
+    }
+
+    .moidfy-button {
+      cursor: pointer;
+      color: #0083ee;
+
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
