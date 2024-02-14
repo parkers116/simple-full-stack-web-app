@@ -1,0 +1,46 @@
+import React from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import CreateButton from "./";
+import FormSubmit from "../FormSubmit";
+import * as ReactQuery from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: (query: any) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {},
+    removeListener: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => {},
+  }),
+});
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // ✅ turns retries off
+      retry: false,
+    },
+  },
+});
+
+test("render CreateButton", async () => {
+  render(
+    <QueryClientProvider client={queryClient}>
+      <FormSubmit type="create" />
+      <CreateButton />
+    </QueryClientProvider>
+  );
+  const buttonElement = await screen.findByRole("button");
+  fireEvent.click(buttonElement);
+  //   const dialogElement = await screen.findByRole("dialog", { hidden: true });
+  //   dialogElement.
+  //   expect(dialogElement).toHaveTextContent("Name");
+  //   expect(dialogElement).toHaveTextContent("Description");
+
+  //   expect(buttonElement).toBeInTheDocument();
+});

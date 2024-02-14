@@ -56,7 +56,11 @@ const FormSubmit = (props: FormSubmitProps) => {
   };
 
   return (
-    <dialog className={`form-dialog form-dialog-${props.type}`} ref={refForm}>
+    <dialog
+      className={`form-dialog form-dialog-${props.type}`}
+      // role="dialog"
+      ref={refForm}
+    >
       <Form
         className="form-submit"
         layout="vertical"
@@ -67,6 +71,7 @@ const FormSubmit = (props: FormSubmitProps) => {
         <Item name="name" label="Name" rules={[{ required: true, max: 100 }]}>
           <Input
             type="text"
+            name="name"
             placeholder="name of the todo item"
             defaultValue={targetData?.name}
           />
@@ -74,19 +79,22 @@ const FormSubmit = (props: FormSubmitProps) => {
         <Item name="desc" label="Description" rules={[{ max: 200 }]}>
           <TextArea
             rows={4}
+            name="description"
             placeholder="description here..."
             defaultValue={targetData?.desc}
           />
         </Item>
         <div className="button-container">
-          <Button htmlType="reset">Reset</Button>
-          <Button type="primary" htmlType="submit">
+          <Button aria-label="reset" htmlType="reset">
+            Reset
+          </Button>
+          <Button aria-label="submit" type="primary" htmlType="submit">
             {getSubmitButtonText()}
           </Button>
         </div>
       </Form>
       <div className="close-button-wrapper">
-        <Button shape="circle" onClick={onClickClose} danger>
+        <Button aria-label="close" shape="circle" onClick={onClickClose} danger>
           <CloseOutlined />
         </Button>
       </div>

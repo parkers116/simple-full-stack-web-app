@@ -19,6 +19,7 @@ const CreateButton = (props: Props) => {
       className="create-button"
       type="default"
       shape="circle"
+      aria-label="create button"
       onClick={onClick}
     >
       <FileAddOutlined />
