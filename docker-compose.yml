@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./api/.env
+      - .env
+    ports:
+      - ${PORT:-3001}:3001
+    networks:
+      - simple-full-stack-web-app
+    restart: always
+
+  db:
+    container_name: db
+    build:
+      context: ./db
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+    networks:
+      - simple-full-stack-web-app
+    volumes:
+      - ./db/pgdata:/var/lib/postgresql/data
+    restart: always
+
+  ui:
+    container_name: ui
+    build:
+      context: ./ui
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./ui/.env
+      - .env
+    ports:
+      - ${UI_PORT:-80}:80
+    networks:
+      - simple-full-stack-web-app
+    restart: always
+
+networks:
+  simple-full-stack-web-app:

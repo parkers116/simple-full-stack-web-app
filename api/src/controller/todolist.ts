@@ -14,6 +14,7 @@ router.get("/", (req, res) => {
       return;
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).send({ status: 400, data: null });
       return;
     });
@@ -39,6 +40,7 @@ router.post("/", (req, res) => {
       return;
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).send({ status: 400, data: null });
       return;
     });
@@ -66,6 +68,7 @@ router.put("/", (req, res) => {
       return;
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).send({ status: 400, data: null });
       return;
     });
@@ -86,6 +89,7 @@ router.delete("/", (req, res) => {
       return;
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).send({ status: 400, data: null });
       return;
     });

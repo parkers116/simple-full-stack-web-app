@@ -24,3 +24,6 @@ ui/yarn-debug.log*
 ui/yarn-error.log*
 
 .DS_Store
+
+# db
+db/pgdata
