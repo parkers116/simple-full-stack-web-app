@@ -1,8 +1,7 @@
 import express from "express";
-import Pool from "../database/pg_pool";
+import { pool } from "../database/pg_pool";
 
 const router = express.Router();
-const pool = new Pool().pool;
 
 router.get("/", (req, res) => {
   pool
